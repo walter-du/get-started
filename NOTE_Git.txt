@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
 Git 分为 工作区 (Working Directory) 、暂存区 (Stage) 和 版本库 (Repository)
 Git 管理的是修改，NOT 文件;
 
@@ -11,17 +11,21 @@ Git 管理的是修改，NOT 文件;
 查看状态 git status 和 git diff
 	要随时掌握工作区的状态，使用 git status 命令。
 	如果 git status 告诉你有文件被修改过，用 git diff 可以查看修改内容。
-	
+
 版本回退 git reset
 	HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令 git reset --hard commit_id 。
 	穿梭前，用 git log 可以查看提交历史，以便确定要回退到哪个版本。
 	要重返未来，用 git reflog 查看命令历史，以便确定要回到未来的哪个版本。
+	-------------------------
+	日志简写
+	git log --pretty=oneline --abbrev-commit
+	-------------------------
 
 撤销修改
 	场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file。
 	场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步:
-	       第一步用命令 git reset HEAD file，就回到了场景1;
-		   第二步按场景1操作。
+		第一步用命令 git reset HEAD file，就回到了场景1;
+		第二步按场景1操作。
 	场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
 	-------------------------
 	git checkout 和 git reset
@@ -38,24 +42,62 @@ Git 管理的是修改，NOT 文件;
 		M readme.txt
 
 		git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。
-		
+
 删除文件
 	$ rm test.txt
 	$ git rm test.txt
 	$ git commit -m "remove test.txt"
 	git rm 用于删除一个文件。如果这个文件已经被提交到版本库，那么你永远不用担心误删，
 	但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
-	
+
 首次关联和推送
 	$ git remote add origin https://github.com/<git_name>/<git_repos_name>.git
 	[ OR $ git remote add origin git@github.com:<git_name>/<git_repos_name>.git ]
 	$ git push -u origin master
 	PS: Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
-	
+
 	switch to git :
 	$ git remote rm origin
 	$ git remote add origin git@github.com:<git_name>/<git_repos_name>.git
-	
+
 From now on, 只要本地作了提交，就可以通过命令：
 	$ git push origin master
---------------------------------------------------------------------------------------------------------------
+
+Branch 管理
+	创建并切换到分支
+	$ git checkout -b dev
+	==
+	$ git branch dev
+	$ git checkout dev
+
+	查看分支
+	$ git branch
+	$ git branch -r
+	$ git branch -a
+
+	切换会 master 分支
+	$ git checkout master
+
+	合并 dev 分支修改到 当前 分支
+	$ git merge dev
+
+	输出 dev 分支
+	$ git branch -d dev
+
+Tag 管理
+	在最新 commit 上打 tag
+	$ git tag v1.0
+	在某个 commit id 上打 tag
+	$ git tag v0.5 <commit_id>
+	$ git tag -a v0.5 [-m <msg>] <commit_id>
+
+	查看 tag
+	$ git tag
+	$ git show <tag_name>
+
+	删除某个 tag
+	$ git tag -d <tag_name>
+
+	推送某个 tag 到 remote
+	$ git push origin v1.0
+--------------------------------------------------------------------------------------------------------
