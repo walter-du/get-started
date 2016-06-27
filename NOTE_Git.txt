@@ -10,7 +10,7 @@ Git 管理的是修改，NOT 文件;
 
 查看状态 git status 和 git diff
 	要随时掌握工作区的状态，使用 git status 命令。
-	如果 git status 告诉你有文件被修改过，用 git diff 可以查看修改内容。
+	如果 git status 告诉你有文件被修改过，用 git diff [--staged] 可以查看修改内容。
 
 版本回退 git reset
 	HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令 git reset --hard commit_id 。
@@ -83,6 +83,36 @@ Branch 管理
 
 	输出 dev 分支
 	$ git branch -d dev
+
+Branch 更新
+	$ git pull <远程主机名> <远程分支名>:<本地分支名>
+
+	取回 origin 主机的 next 分支，与本地的 master 分支合并:
+	$ git pull origin next:master
+	如果远程分支是与当前分支合并，则冒号后面的部分可以省略:
+	$ git pull origin next
+	==
+	$ git fetch origin
+	$ git merge origin/next
+
+	$ git pull origin master
+	==
+	$ git fetch origin master
+	$ git log -p master..origin/master
+	$ git merge origin/master
+	==
+	$ git fetch origin master:tmp
+	$ git diff tmp 
+	$ git merge tmp
+
+	$ git fetch
+	抓取 remote 对应的所有的远程 repos 所包含分支的最新 commit-id,将其记录到 .git/FETCH_HEAD;
+	$ git fetch remote_repos
+	抓取名为 remote_repos 的远程 repos 所包含分支的最新 commit-id;
+	$ git fetch remote_repos remote_branch_name
+	抓取名为 remote_repos 的远程 repos 上的 remote_branch_name 分支;
+	$ git fetch remote_repos remote_branch_name:local_branch_name
+	抓取名为 remote_repos 的远程 repos 上的 remote_branch_name 分支,并在本地创建 local_branch_name 分支保存远端分支的所有数据。
 
 Tag 管理
 	在最新 commit 上打 tag
