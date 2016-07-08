@@ -19,6 +19,9 @@ Git 管理的是修改，NOT 文件;
 	-------------------------
 	日志简写
 	git log --pretty=oneline --abbrev-commit
+
+	日志跟踪
+	git log --graph --pretty=oneline --abbrev-commit
 	-------------------------
 
 撤销修改
@@ -81,7 +84,7 @@ Branch 管理
 	合并 dev 分支修改到 当前 分支
 	$ git merge dev
 
-	输出 dev 分支
+	删除 dev 分支
 	$ git branch -d dev
 
 Branch 更新
