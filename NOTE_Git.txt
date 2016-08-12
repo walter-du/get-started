@@ -1,4 +1,8 @@
 --------------------------------------------------------------------------------------------------------
+git branch -vv[l/a]
+git checkout -b release 新建并切换到本地 release 分支
+git pull origin release 本地 release 分支与远程分支 release 关联
+--------------------------------------------------------------------------------------------------------
 Git 分为 工作区 (Working Directory) 、暂存区 (Stage) 和 版本库 (Repository)
 Git 管理的是修改，NOT 文件;
 
@@ -77,8 +81,9 @@ Branch 管理
 	$ git branch
 	$ git branch -r
 	$ git branch -a
+	$ git branch -vv
 
-	切换会 master 分支
+	切换到 master 分支
 	$ git checkout master
 
 	合并 dev 分支修改到 当前 分支
@@ -101,8 +106,11 @@ Branch 更新
 	$ git pull origin master
 	==
 	$ git fetch origin master
+	从远程的 origin 的 master 主分支下载最新的版本到 origin/master 分支上
 	$ git log -p master..origin/master
+	比较本地的 master 分支和 origin/master 分支的差别
 	$ git merge origin/master
+	合并到当前分支
 	==
 	$ git fetch origin master:tmp
 	$ git diff tmp 
